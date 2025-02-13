@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository //1 of the 4 Stereotype annotaion
 public interface UserDAO extends JpaRepository<User, Integer> {
-
+    User findByUsername(String username);
 }

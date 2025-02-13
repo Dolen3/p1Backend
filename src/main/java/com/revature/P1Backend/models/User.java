@@ -2,6 +2,8 @@ package com.revature.P1Backend.models;
 import org.springframework.stereotype.Component;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Component
 @Entity
 @Table(name = "users")
@@ -16,6 +18,9 @@ public class User {
 
     private String password;
     private String role;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Reimbursement> reimbursement;
 
     //boilerplate code
     public User() {
