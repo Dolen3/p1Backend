@@ -6,10 +6,13 @@ import com.revature.P1Backend.exceptions.UnauthorizedException;
 import com.revature.P1Backend.models.User;
 import jakarta.persistence.Access;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
+
 
 import java.nio.file.AccessDeniedException;
 import java.util.List;
+
 
 @Service
 public class UserService {

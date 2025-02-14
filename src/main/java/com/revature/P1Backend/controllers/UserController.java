@@ -18,10 +18,17 @@ public class UserController {
 
     //WE NEED HttpSession to get the current user!! Could have been done other ways
 
+
     @PostMapping("/register")
     public ResponseEntity<User> createUser(@RequestBody User user) {
         User createdUser = userService.createUser(user);
         return ResponseEntity.ok(createdUser);
+
+    @PostMapping
+    public User createUser(@RequestBody User user) {
+        // The service sets role = "EMPLOYEE" by default.
+        return userService.createUser(user);
+
     }
 
     @GetMapping("/{id}")
