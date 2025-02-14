@@ -19,8 +19,8 @@ public class User {
     private String password;
     private String role;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Reimbursement> reimbursement;
+    //@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    //private List<Reimbursement> reimbursement;
 
     //boilerplate code
     public User() {
