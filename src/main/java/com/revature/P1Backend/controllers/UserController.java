@@ -3,6 +3,7 @@ import com.revature.P1Backend.models.User;
 import com.revature.P1Backend.services.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 
@@ -17,10 +18,17 @@ public class UserController {
 
     //WE NEED HttpSession to get the current user!! Could have been done other ways
 
+
+    @PostMapping("/register")
+    public ResponseEntity<User> createUser(@RequestBody User user) {
+        User createdUser = userService.createUser(user);
+        return ResponseEntity.ok(createdUser);
+
     @PostMapping
     public User createUser(@RequestBody User user) {
         // The service sets role = "EMPLOYEE" by default.
         return userService.createUser(user);
+
     }
 
     @GetMapping("/{id}")
