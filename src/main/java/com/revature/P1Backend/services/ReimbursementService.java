@@ -11,8 +11,14 @@ import com.revature.P1Backend.models.User;
 
 public class ReimbursementService {
 
-    @Autowired
     private ReimbursementDAO reimbursementDAO;
+
+    @Autowired
+    public ReimbursementService(ReimbursementDAO reimbursementDAO){
+        this.reimbursementDAO = reimbursementDAO;
+    }
+
+
 
     //Employee functionality only
     public Reimbursement createReimbursement(User currentUser, Reimbursement reimbursement) {

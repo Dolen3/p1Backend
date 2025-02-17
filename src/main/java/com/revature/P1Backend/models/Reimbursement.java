@@ -23,8 +23,9 @@ public class Reimbursement {
     private String status;
     private String description;
 
-    @ManyToOne
-    private User createdBy; //maps to userId
+    
+
+    private User createdBy; //maps to user
 
     public Reimbursement(){
     }
@@ -35,6 +36,10 @@ public class Reimbursement {
 
     public String getStatus(){
         return status;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public void setStatus(String status) {
