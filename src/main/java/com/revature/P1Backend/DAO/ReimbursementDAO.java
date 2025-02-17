@@ -14,8 +14,14 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ReimbursementDAO extends JpaRepository<Reimbursement, Integer> {
 
-    @Query("FROM Reimbursement WHERE createdBy = :idVar")
+    @Query("FROM reimbursements WHERE createdBy = :idVar")
     List<Reimbursement> getReimbursementsByUser(@Param("idVar") int userId);
 
-    
+    @Query("FROM reimbursements WHERE createdBy = :idVar AND status = PENDING")
+    List<Reimbursement> getPendingReimbursementsByUser(@Param("idVar") int userId);
+
+    @Query("FROM reimbursements WHERE status = :statusVar")
+    List<Reimbursement> findReimbursementByStatus(@Param("statusVar") String status);
+
+    Reimbursement findReimbursementByReimbursementId(int id);
 } 

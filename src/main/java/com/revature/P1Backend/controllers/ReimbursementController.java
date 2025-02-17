@@ -32,38 +32,44 @@ public class ReimbursementController {
         return reimbursementService.createReimbursement(user, reimbursement);
     }
 
+    //Employees can see all of their reimbursements
     @GetMapping 
     public List<Reimbursement> getReimbursementsByUser(HttpSession session){
         User user = (User) session.getAttribute("currentUser");
         return reimbursementService.getReimbursementsByUser(user);
     }
 
+    //Employees can see all of their pending reimbursements
     @GetMapping ("/pending")
     public List<Reimbursement>  getPendingReimbursementsByUser(HttpSession session){
         User user = (User) session.getAttribute("currentUser");
         return reimbursementService.getPendingReimbursementsByUser(user);
     }
 
+    //Managers can see all reimbursements under all users, employees are unauthorized
     @GetMapping
     public List<Reimbursement> getAllReimbursements(HttpSession session){
         User user = (User) session.getAttribute("currentUser");
         return reimbursementService.getAllReimbursements(user);
     }
 
+    //Managers can see all pending reimbursements under all users
     @GetMapping
     public List<Reimbursement> getAllPendingReimbursements(HttpSession session){
         User user = (User) session.getAttribute("currentUser");
         return reimbursementService.getAllPendingReimbursements(user);
     }
 
-    @DeleteMapping("/{id}/resolve")
-    public Reimbursement deleteReimbursement(@PathVariable int id, @RequestBody String decisionString, HttpSession session){
+    //Managers can update the status of a reimbursement to approved or denied
+    @PutMapping("/{id}/resolve")
+    public Reimbursement updateReimbursement(@PathVariable int id, @RequestBody String decisionString, HttpSession session){
         User user = (User) session.getAttribute("currentUser");
         return reimbursementService.resolveReimbursement(id, decisionString, user);
     }
 
+    //Employees can update the description of a reimbursement
     @PutMapping("{id}/update")
-    public Reimbursement updateReimbursement(@PathVariable int id, @RequestBody String newDescription, HttpSession session){
+    public Reimbursement updateReimbursementDescription(@PathVariable int id, @RequestBody String newDescription, HttpSession session){
         User user = (User) session.getAttribute("currentUser");
         return reimbursementService.updateReimbursement(id, user, newDescription);
     }

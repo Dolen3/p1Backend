@@ -1,6 +1,47 @@
 package com.revature.P1Backend.models;
 
+import org.springframework.stereotype.Component;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+
+@Component
+@Entity
+@Table(name = "reimbursements")
 public class Reimbursement {
 
-    int createdBy;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int reimbursementId;
+
+    @Column
+    private String status;
+    private String description;
+
+    @ManyToOne
+    private User createdBy; //maps to userId
+
+    public Reimbursement(){
+    }
+
+    public Reimbursement(int reimbursementId, int createdBy){
+
+    }
+
+    public String getStatus(){
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }
