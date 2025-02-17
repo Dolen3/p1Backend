@@ -10,6 +10,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+
+import jakarta.persistence.Entity;
+
 @Component
 @Entity
 @Table(name = "reimbursements")
