@@ -22,6 +22,8 @@ public class Reimbursement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int reimbursementId;
 
+    
+
     @Column
     private String status;
     private String description;
@@ -31,8 +33,19 @@ public class Reimbursement {
     public Reimbursement(){
     }
 
-    public Reimbursement(int reimbursementId, int createdBy){
+    public Reimbursement(int reimbursementId, User user, String status, String description){
+        this.reimbursementId = reimbursementId;
+        this.user = user;
+        this.status = status;
+        this.description = description;
+    }
 
+    public int getReimbursementId() {
+        return reimbursementId;
+    }
+
+    public void setReimbursementId(int reimbursementId) {
+        this.reimbursementId = reimbursementId;
     }
 
     public String getStatus(){
@@ -49,5 +62,13 @@ public class Reimbursement {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
