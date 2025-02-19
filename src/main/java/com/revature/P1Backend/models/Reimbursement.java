@@ -26,9 +26,7 @@ public class Reimbursement {
     private String status;
     private String description;
 
-    
-
-    private User createdBy; //maps to user
+    private User user; //maps to user
 
     public Reimbursement(){
     }
