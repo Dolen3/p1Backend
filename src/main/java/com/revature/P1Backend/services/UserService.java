@@ -43,13 +43,13 @@ public class UserService {
             return new OutgoingUserDTO(user);
         }
 
-        throw new UnauthorizedException("You don't have permission to view other users' data.");
+        throw new UnauthorizedException("You don't have permission to view this page.");
     }
 
     //only manager can get all users
     public List<OutgoingUserDTO> getAllUsers(User currentUser){
         if (currentUser == null || !"MANAGER".equals(currentUser.getRole())) {
-            throw new UnauthorizedException("Only managers can view all users.");
+            throw new UnauthorizedException("You don't have permission to view this page.");
         }
         List<User> returnedUsers = userDAO.findAll();
         List<OutgoingUserDTO> userDTOs = new ArrayList<>();
@@ -63,7 +63,7 @@ public class UserService {
     // Only manager can delete user
     public void deleteUser(int id, User currentUser){
         if (currentUser == null || !"MANAGER".equals(currentUser.getRole())) {
-            throw new UnauthorizedException("Only managers can delete users.");
+            throw new UnauthorizedException("You don't have permission to perform this action.");
         }
         userDAO.deleteById(id);
     }
@@ -71,7 +71,7 @@ public class UserService {
     // Only manager can update a role
     public OutgoingUserDTO updateUserRole(int userId, String newRole, User currentUser) {
         if (currentUser == null || !"MANAGER".equals(currentUser.getRole())) {
-            throw new UnauthorizedException("Only managers can update user roles.");
+            throw new UnauthorizedException("You don't have permission to perform this action.");
         }
 
         User userToUpdate = userDAO.findById(userId)
