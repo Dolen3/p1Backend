@@ -1,8 +1,10 @@
 package com.revature.P1Backend.controllers;
+import com.revature.P1Backend.models.DTOs.LoginDTO;
 import com.revature.P1Backend.models.DTOs.OutgoingUserDTO;
 import com.revature.P1Backend.models.User;
 import com.revature.P1Backend.services.UserService;
 import jakarta.servlet.http.HttpSession;
+import org.apache.juli.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,13 +19,19 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    //WE NEED HttpSession to get the current user!! Could have been done other ways
-
-
     @PostMapping("/register")
     public ResponseEntity<OutgoingUserDTO> createUser(@RequestBody User user) {
         OutgoingUserDTO createdUser = userService.createUser(user);
         return ResponseEntity.ok(createdUser);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<OutgoingUserDTO> login(@RequestBody LoginDTO loginDTO, HttpSession session) {
+        OutgoingUserDTO loggedInUser = userService.login(loginDTO);
+        User user = new User(loggedInUser.getUserId(), loggedInUser.getUsername(), null, loggedInUser.getRole());
+        session.setAttribute("currentUser", user);
+        System.out.println("User " + session.getAttribute("username") + " has logged in!");
+        return ResponseEntity.ok(loggedInUser);
     }
 
     @GetMapping("/{id}")
@@ -50,5 +58,4 @@ public class UserController {
         User currentUser = (User) session.getAttribute("currentUser");
         return ResponseEntity.ok(userService.updateUserRole(id, newRole, currentUser));
     }
-
 }
