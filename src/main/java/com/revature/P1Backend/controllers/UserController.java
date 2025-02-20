@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 @RestController
 @RequestMapping("/users")
+@CrossOrigin(value = "http://localhost:5173", allowCredentials = "true")
 public class UserController {
 
     @Autowired
@@ -28,6 +29,7 @@ public class UserController {
         OutgoingUserDTO loggedInUser = userService.login(loginDTO);
         User user = new User(loggedInUser.getUserId(), loggedInUser.getUsername(), null, loggedInUser.getRole());
         session.setAttribute("currentUser", user);
+        session.setAttribute("username", loggedInUser.getUsername());
         System.out.println("User " + session.getAttribute("username") + " has logged in!");
         return ResponseEntity.ok(loggedInUser);
     }
