@@ -2,6 +2,8 @@ package com.revature.P1Backend.models;
 
 import org.springframework.stereotype.Component;
 
+import com.revature.P1Backend.models.DTOs.IncomingReimbursementDTO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,6 +33,13 @@ public class Reimbursement {
     private User user; //maps to user
 
     public Reimbursement(){
+    }
+
+    public Reimbursement(IncomingReimbursementDTO reimbursementDTO){
+        this.status = "PENDING";
+        this.description = reimbursementDTO.getDescription();
+        reimbursementId = 0;
+        user = null;
     }
 
     public Reimbursement(int reimbursementId, User user, String status, String description){

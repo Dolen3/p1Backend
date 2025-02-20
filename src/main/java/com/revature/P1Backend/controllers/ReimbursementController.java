@@ -31,21 +31,23 @@ public class ReimbursementController {
     private ReimbursementService reimbursementService;
 
     @PostMapping("/create")
-    public ResponseEntity <Reimbursement> createReimbursement(@RequestBody Reimbursement reimbursement, HttpSession session){
+    public ResponseEntity <Reimbursement> createReimbursement(@RequestBody IncomingReimbursementDTO reimbursementDTO, HttpSession session){
         User user = (User) session.getAttribute("currentUser");
-        return ResponseEntity.accepted().body(reimbursementService.createReimbursement(user, reimbursement));
+        
+
+        return ResponseEntity.accepted().body(reimbursementService.createReimbursement(user, reimbursementDTO));
     }
 
     //Employees can see all of their reimbursements
     @GetMapping 
     public ResponseEntity<List<Reimbursement>> getReimbursementsByUser(HttpSession session){
         User user = (User) session.getAttribute("currentUser");
-        return ResponseEntity.ok(reimbursementService.getReimbursementsByUser(user)) ;
+        return ResponseEntity.ok(reimbursementService.getReimbursementsByUser(user));
     }
 
     //Employees can see all of their pending reimbursements
     @GetMapping ("/pending")
-    public ResponseEntity<List<Reimbursement>>  getPendingReimbursementsByUser(HttpSession session){
+    public ResponseEntity<List<Reimbursement>>  getPendingReimbursementsByUser(HttpSession session, @PathVariable int id){
         User user = (User) session.getAttribute("currentUser");
         return ResponseEntity.ok(reimbursementService.getPendingReimbursementsByUser(user));
     }
@@ -58,7 +60,7 @@ public class ReimbursementController {
     }
 
     //Managers can see all pending reimbursements under all users
-    @GetMapping
+    @GetMapping ("/pending/management")
     public ResponseEntity<List<Reimbursement>> getAllPendingReimbursements(HttpSession session){
         User user = (User) session.getAttribute("currentUser");
         return ResponseEntity.ok(reimbursementService.getAllPendingReimbursements(user));

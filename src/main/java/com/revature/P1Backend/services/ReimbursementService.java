@@ -1,27 +1,33 @@
 package com.revature.P1Backend.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.w3c.dom.UserDataHandler;
 
 import com.revature.P1Backend.DAO.ReimbursementDAO;
+import com.revature.P1Backend.DAO.UserDAO;
 import com.revature.P1Backend.exceptions.UnauthorizedException;
 import com.revature.P1Backend.models.Reimbursement;
 import com.revature.P1Backend.models.User;
+import com.revature.P1Backend.models.DTOs.IncomingReimbursementDTO;
 
 public class ReimbursementService {
 
     private ReimbursementDAO reimbursementDAO;
+    private UserDAO userDAO;
 
     @Autowired
-    public ReimbursementService(ReimbursementDAO reimbursementDAO){
+    public ReimbursementService(ReimbursementDAO reimbursementDAO, UserDAO userDAO){
         this.reimbursementDAO = reimbursementDAO;
+        this.userDAO = userDAO;
     }
 
 
 
     //Employee functionality only
-    public Reimbursement createReimbursement(User currentUser, Reimbursement reimbursement) {
+    public Reimbursement createReimbursement(User currentUser, IncomingReimbursementDTO reimbursementDTO) {
         if(currentUser == null){
             throw new UnauthorizedException("You must be logged in to perform this action.");
         }
@@ -29,7 +35,18 @@ public class ReimbursementService {
             throw new UnauthorizedException("You do not have permission to perform this action.");
         }
 
-        return reimbursementDAO.save(reimbursement);
+        Reimbursement reimbursement = new Reimbursement(reimbursementDTO);
+
+        Optional<User> reUser = userDAO.findById(reimbursementDTO.getUserId());
+
+        if(reUser.isEmpty()){
+            throw new RuntimeException("User defined in reimbursement does not exist!");
+        }
+        else{
+            reimbursement.setUser(reUser.get());
+        }
+
+        return reimbursementDAO.save(new Reimbursement());
     }
 
     //Employee functionality
