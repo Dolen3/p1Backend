@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.w3c.dom.UserDataHandler;
 
 import com.revature.P1Backend.DAO.ReimbursementDAO;
@@ -13,6 +14,7 @@ import com.revature.P1Backend.models.Reimbursement;
 import com.revature.P1Backend.models.User;
 import com.revature.P1Backend.models.DTOs.IncomingReimbursementDTO;
 
+@Service
 public class ReimbursementService {
 
     private ReimbursementDAO reimbursementDAO;
