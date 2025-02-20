@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.P1Backend.models.Reimbursement;
 import com.revature.P1Backend.models.User;
+import com.revature.P1Backend.models.DTOs.IncomingReimbursementDTO;
 import com.revature.P1Backend.services.ReimbursementService;
 
 import jakarta.servlet.http.HttpSession;
@@ -30,9 +31,9 @@ public class ReimbursementController {
     private ReimbursementService reimbursementService;
 
     @PostMapping("/create")
-    public Reimbursement createReimbursement(@RequestBody Reimbursement reimbursement, HttpSession session){
+    public ResponseEntity <Reimbursement> createReimbursement(@RequestBody Reimbursement reimbursement, HttpSession session){
         User user = (User) session.getAttribute("currentUser");
-        return reimbursementService.createReimbursement(user, reimbursement);
+        return ResponseEntity.accepted().body(reimbursementService.createReimbursement(user, reimbursement));
     }
 
     //Employees can see all of their reimbursements
