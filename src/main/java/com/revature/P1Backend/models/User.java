@@ -19,9 +19,9 @@ public class User {
     private String password;
     private String role;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "reimbursementId")
-    private List<Reimbursement> reimbursement;
+    //@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    //@JoinColumn(name = "reimbursementId")
+    //private List<Reimbursement> reimbursement;
 
 
     //boilerplate code
