@@ -24,7 +24,7 @@ import jakarta.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/reimbursements")
-@CrossOrigin
+@CrossOrigin(value = "http://localhost:5173", allowCredentials = "true")
 public class ReimbursementController {
 
     @Autowired
@@ -73,9 +73,16 @@ public class ReimbursementController {
     }
 
     //Employees can update the description of a reimbursement
-    @PutMapping("{id}/updateDescription")
+    @PutMapping("/{id}/updateDescription")
     public ResponseEntity<Reimbursement> updateReimbursementDescription(@PathVariable int id, @RequestBody String newDescription, HttpSession session){
         User user = (User) session.getAttribute("currentUser");
         return ResponseEntity.ok(reimbursementService.updateReimbursement(id, user, newDescription));
+    }
+
+    // New endpoint: Managers can view reimbursements for a specific user by ID
+    @GetMapping("/users/{userId}/reimbursements")
+    public ResponseEntity<List<Reimbursement>> getReimbursementsById( @PathVariable int userId, HttpSession session) {
+        User user = (User) session.getAttribute("currentUser");
+        return ResponseEntity.ok(reimbursementService.getReimbursementsByUserId(userId));
     }
 }
