@@ -83,6 +83,6 @@ public class ReimbursementController {
     @GetMapping("/{userId}")
     public ResponseEntity<List<Reimbursement>> getReimbursementsById( @PathVariable int userId, HttpSession session) {
         User user = (User) session.getAttribute("currentUser");
-        return ResponseEntity.ok(reimbursementService.getReimbursementsByUserId(userId));
+        return ResponseEntity.ok(reimbursementService.getReimbursementsByUserId(userId, user));
     }
 }

@@ -121,7 +121,16 @@ public class ReimbursementService {
     }
 
     // New method using ReimbursementDAO
-    public List<Reimbursement> getReimbursementsByUserId(int userId) {
+    public List<Reimbursement> getReimbursementsByUserId(int userId, User user) {
+        if(user == null){
+            throw new UnauthorizedException("You must be logged in to perform this action.");
+        }
+        if(user.getUserId() != userId){
+            if(!user.getRole().equals("MANAGER") ){
+                throw new UnauthorizedException("You do not have permission to perform this action.");
+            }
+        }
+
         // Check if the user exists (optional, depending on your requirements)
         Optional<User> optionalUser = userDAO.findById(userId);
         if (!optionalUser.isPresent()) {
