@@ -80,7 +80,7 @@ public class ReimbursementController {
     }
 
     // New endpoint: Managers can view reimbursements for a specific user by ID
-    @GetMapping("/users/{userId}/reimbursements")
+    @GetMapping("/{userId}")
     public ResponseEntity<List<Reimbursement>> getReimbursementsById( @PathVariable int userId, HttpSession session) {
         User user = (User) session.getAttribute("currentUser");
         return ResponseEntity.ok(reimbursementService.getReimbursementsByUserId(userId));
