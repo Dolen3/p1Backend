@@ -28,6 +28,7 @@ public class UserController {
         OutgoingUserDTO loggedInUser = userService.login(loginDTO);
         User user = new User(loggedInUser.getUserId(), loggedInUser.getUsername(), null, loggedInUser.getRole());
         session.setAttribute("currentUser", user);
+        session.setAttribute("username", loggedInUser.getUsername());
         System.out.println("User " + session.getAttribute("username") + " has logged in!");
         return ResponseEntity.ok(loggedInUser);
     }
