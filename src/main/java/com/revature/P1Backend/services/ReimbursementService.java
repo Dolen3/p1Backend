@@ -48,7 +48,7 @@ public class ReimbursementService {
             reimbursement.setUser(reUser.get());
         }
 
-        return reimbursementDAO.save(new Reimbursement());
+        return reimbursementDAO.save(reimbursement);
     }
 
     //Employee functionality
