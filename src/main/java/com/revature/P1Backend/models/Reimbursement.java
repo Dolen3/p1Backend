@@ -34,7 +34,7 @@ public class Reimbursement {
     private String description;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "user_Id")
     private User user; //maps to user
 
     public Reimbursement(){
