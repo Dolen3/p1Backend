@@ -5,8 +5,6 @@ import com.revature.P1Backend.models.Reimbursement;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 
@@ -14,14 +12,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ReimbursementDAO extends JpaRepository<Reimbursement, Integer> {
 
-    @Query("FROM reimbursements WHERE createdBy = :idVar")
-    List<Reimbursement> getReimbursementsByUser(@Param("idVar") int userId);
+    public List<Reimbursement> findReimbursementsByUser_UserId(int userId);
 
-    @Query("FROM reimbursements WHERE createdBy = :idVar AND status = PENDING")
-    List<Reimbursement> getPendingReimbursementsByUser(@Param("idVar") int userId);
+    public List<Reimbursement> findReimbursementsByStatusAndUser_UserId(String status, int userId);
 
-    @Query("FROM reimbursements WHERE status = :statusVar")
-    List<Reimbursement> findReimbursementByStatus(@Param("statusVar") String status);
+    public List<Reimbursement> findReimbursementsByStatus(String status);
 
-    Reimbursement findReimbursementByReimbursementId(int id);
+    public Reimbursement findByReimbursementId(int id);
 } 

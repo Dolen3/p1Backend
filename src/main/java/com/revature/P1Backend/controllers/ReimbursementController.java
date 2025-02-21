@@ -33,7 +33,6 @@ public class ReimbursementController {
     @PostMapping("/create")
     public ResponseEntity <Reimbursement> createReimbursement(@RequestBody IncomingReimbursementDTO reimbursementDTO, HttpSession session){
         User user = (User) session.getAttribute("currentUser");
-        
 
         return ResponseEntity.accepted().body(reimbursementService.createReimbursement(user, reimbursementDTO));
     }

@@ -59,7 +59,7 @@ public class ReimbursementService {
         if("MANAGER".equals(currentUser.getRole())){
             throw new UnauthorizedException("You do not have permission to perform this action.");
         }
-        return reimbursementDAO.getReimbursementsByUser(currentUser.getUserId());
+        return reimbursementDAO.findReimbursementsByUser_UserId(currentUser.getUserId());
     }
 
     //Employee functionality
@@ -70,7 +70,7 @@ public class ReimbursementService {
         if("MANAGER".equals(currentUser.getRole())){
             throw new UnauthorizedException("You do not have permission to perform this action.");
         }
-        return reimbursementDAO.getPendingReimbursementsByUser(currentUser.getUserId());
+        return reimbursementDAO.findReimbursementsByStatusAndUser_UserId("PENDING", currentUser.getUserId());
     }
 
     //Manager functionality
@@ -91,7 +91,7 @@ public class ReimbursementService {
         if(!"MANAGER".equals(currentUser.getRole())){
             throw new UnauthorizedException("You do not have permission to perform this action.");
         }
-        return reimbursementDAO.findReimbursementByStatus("PENDING");
+        return reimbursementDAO.findReimbursementsByStatus("PENDING");
     }
 
     public Reimbursement resolveReimbursement(int id, String decisionString, User currentUser) {
@@ -101,7 +101,7 @@ public class ReimbursementService {
         if(decisionString == null)
             return null;
         else{
-            Reimbursement resolvedReimbursement = reimbursementDAO.findReimbursementByReimbursementId(id);
+            Reimbursement resolvedReimbursement = reimbursementDAO.findByReimbursementId(id);
             resolvedReimbursement.setStatus(decisionString);
             return reimbursementDAO.save(resolvedReimbursement);
         }
@@ -115,7 +115,7 @@ public class ReimbursementService {
             throw new UnauthorizedException("You do not have permission to perform this action.");
         }
         else{
-            Reimbursement updatedReimbursement = reimbursementDAO.findReimbursementByReimbursementId(id);
+            Reimbursement updatedReimbursement = reimbursementDAO.findByReimbursementId(id);
             updatedReimbursement.setDescription(newDescription);
             return reimbursementDAO.save(updatedReimbursement);
         }
