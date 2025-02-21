@@ -30,21 +30,20 @@ public class ReimbursementService {
 
     //Employee functionality only
     public Reimbursement createReimbursement(User currentUser, IncomingReimbursementDTO reimbursementDTO) {
-        if(currentUser == null){
+        if (currentUser == null) {
             throw new UnauthorizedException("You must be logged in to perform this action.");
         }
-        if("MANAGER".equals(currentUser.getRole())){
+        if ("MANAGER".equals(currentUser.getRole())) {
             throw new UnauthorizedException("You do not have permission to perform this action.");
         }
 
+        System.out.println("User ID from DTO: " + reimbursementDTO.getUserId()); // Debug log
         Reimbursement reimbursement = new Reimbursement(reimbursementDTO);
 
         Optional<User> reUser = userDAO.findById(reimbursementDTO.getUserId());
-
-        if(reUser.isEmpty()){
-            throw new RuntimeException("User defined in reimbursement does not exist!");
-        }
-        else{
+        if (reUser.isEmpty()) {
+            throw new RuntimeException("User with ID " + reimbursementDTO.getUserId() + " does not exist!");
+        } else {
             reimbursement.setUser(reUser.get());
         }
 

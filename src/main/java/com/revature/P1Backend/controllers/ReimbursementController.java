@@ -52,7 +52,7 @@ public class ReimbursementController {
     }
 
     //Managers can see all reimbursements under all users, employees are unauthorized
-    @GetMapping("management")
+    @GetMapping("/management")
     public ResponseEntity<List<Reimbursement>> getAllReimbursements(HttpSession session){
         User user = (User) session.getAttribute("currentUser");
         return ResponseEntity.ok(reimbursementService.getAllReimbursements(user));
