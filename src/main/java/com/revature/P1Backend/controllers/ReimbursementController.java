@@ -46,7 +46,7 @@ public class ReimbursementController {
 
     //Employees can see all of their pending reimbursements
     @GetMapping ("/pending")
-    public ResponseEntity<List<Reimbursement>>  getPendingReimbursementsByUser(HttpSession session, @PathVariable int id){
+    public ResponseEntity<List<Reimbursement>>  getPendingReimbursementsByUser(HttpSession session){
         User user = (User) session.getAttribute("currentUser");
         return ResponseEntity.ok(reimbursementService.getPendingReimbursementsByUser(user));
     }
