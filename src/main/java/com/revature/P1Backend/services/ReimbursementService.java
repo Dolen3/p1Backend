@@ -120,6 +120,21 @@ public class ReimbursementService {
         }
     }
 
+    // New method using ReimbursementDAO
+    public List<Reimbursement> getReimbursementsByUserId(int userId) {
+        // Check if the user exists (optional, depending on your requirements)
+        Optional<User> optionalUser = userDAO.findById(userId);
+        if (!optionalUser.isPresent()) {
+            throw new RuntimeException("User not found with ID: " + userId);
+        }
+        // Use the DAO method to fetch reimbursements by user ID
+        List<Reimbursement> reimbursements = reimbursementDAO.findReimbursementsByUser_UserId(userId);
+        if (reimbursements.isEmpty()) {
+            throw new RuntimeException("No reimbursements found for user with ID: " + userId);
+        }
+        return reimbursements;
+    }
+
     /*private boolean authorize(User user, String neededRole){
         if(user.getRole().equals(neededRole)){
             return true;
