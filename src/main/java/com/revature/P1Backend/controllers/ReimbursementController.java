@@ -66,14 +66,14 @@ public class ReimbursementController {
     }
 
     //Managers can update the status of a reimbursement to approved or denied
-    @PutMapping("/{id}/resolve")
+    @PutMapping("/{id}/updateReimbursement")
     public ResponseEntity<Reimbursement> updateReimbursement(@PathVariable int id, @RequestBody String decisionString, HttpSession session){
         User user = (User) session.getAttribute("currentUser");
         return ResponseEntity.ok(reimbursementService.resolveReimbursement(id, decisionString, user));
     }
 
     //Employees can update the description of a reimbursement
-    @PutMapping("{id}/update")
+    @PutMapping("{id}/updateDescription")
     public ResponseEntity<Reimbursement> updateReimbursementDescription(@PathVariable int id, @RequestBody String newDescription, HttpSession session){
         User user = (User) session.getAttribute("currentUser");
         return ResponseEntity.ok(reimbursementService.updateReimbursement(id, user, newDescription));
