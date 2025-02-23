@@ -13,4 +13,5 @@ import java.util.Optional;
 @Repository //1 of the 4 Stereotype annotaion
 public interface UserDAO extends JpaRepository<User, Integer> {
     public Optional<User> findByUsernameAndPassword(String username, String password);
+    public Optional<User> findByUsername(String username);
 }
