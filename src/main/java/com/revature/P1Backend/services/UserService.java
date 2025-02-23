@@ -23,15 +23,13 @@ public class UserService {
     private UserDAO userDAO;
 
     //Employee Functionality
-    public OutgoingUserDTO createUser(User user){
-
+    public User createUser(User user) {
         if (userDAO.findByUsername(user.getUsername()).isPresent()) {
             throw new IllegalArgumentException("Username already exists");
         }
 
         user.setRole("EMPLOYEE"); // Default role
-        User savedUser = userDAO.save(user);
-        return new OutgoingUserDTO(savedUser);
+        return userDAO.save(user);
     }
 
 

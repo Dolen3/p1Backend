@@ -19,9 +19,10 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<OutgoingUserDTO> createUser(@RequestBody User user) {
-        OutgoingUserDTO createdUser = userService.createUser(user);
-        return ResponseEntity.ok(createdUser);
+    public ResponseEntity<OutgoingUserDTO> registerUser(@RequestBody User user, HttpSession session) {
+        User createdUser = userService.createUser(user);
+        session.setAttribute("currentUser", createdUser);
+        return ResponseEntity.ok(new OutgoingUserDTO(createdUser));
     }
 
     @PostMapping("/login")
