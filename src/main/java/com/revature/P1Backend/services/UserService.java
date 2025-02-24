@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.nio.file.AccessDeniedException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -25,6 +26,10 @@ public class UserService {
     //Employee Functionality
     public OutgoingUserDTO createUser(User user){
         user.setRole("EMPLOYEE"); // Default role
+        Optional<User> existingUser = userDAO.findByUsername(user.getUsername());
+        if(!existingUser.isPresent()){
+            throw new RuntimeException("This username is taken!");
+        }
         User savedUser = userDAO.save(user);
         return new OutgoingUserDTO(savedUser);
     }
